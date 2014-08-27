@@ -1,30 +1,29 @@
-[Environment]::SetEnvironmentVariable("ORACLE_SID", "NBCPROD", "Process")
-
+[Environment]::SetEnvironmentVariable("ORACLE_SID", $args[0], "Process")
+#[Environment]::SetEnvironmentVariable("NLS_LANG", "AMERICAN_AMERICAN.AL32UTF8", "Process")
 
 foreach ($arg in $args) {
     write-host $arg
 }
-    #$bla = $args[0]
-  
+ 
     Function Export {
      
         Param (
           $Date         = (Get-Date -Format yyyyMMdd),
-          $DmpFileName  = "$env:ORACLE_SID$Date.dmp",
-          $Oracle_Home  = "C:\Oracle_Sys\nbcprod\product\11.2\db\",  
+          $DmpFileName  = "$env:ORACLE_SID$Date-4",
+          $Oracle_Home  = "C:\Oracle_Sys\$env:ORACLE_SID\product\11.2\db\",  
           $FilePath     = (Join-Path $Oracle_Home \bin\expdp.exe),
-          $ArgumentList = "USERID='/ as sysdba' FULL=Y DIRECTORY=DMPDIR DUMPFILE=$DmpFileName LOGFILE=dumplog.txt"
+          $FlashBack    = '\"TO_TIMESTAMP(TO_CHAR(SYSDATE,''YYYY-MM-DD HH24:MI:SS''),''YYYY-MM-DD HH24:MI:SS'')\"',
+          $ArgumentList = "USERID='/ as sysdba' FULL=Y DIRECTORY=DMPDIR DUMPFILE=$DmpFileName.dmp LOGFILE=$DmpFileName.txt FLASHBACK_TIME=$FlashBack"
         )
 
-        Write-Host $Date
-        Write-Host $DmpFileName
-        Write-Host $env:ORACLE_SID
+        Write-Host "Date:" $Date
+        Write-Host "DmpFileName:" $DmpFileName
+        Write-Host "Oracle_Home": $Oracle_Home
+        Write-Host "Environment variable ORACLE_SID:" $env:ORACLE_SID
         Get-ChildItem Env:ORACLE_SID
         Write-Host $ArgumentList
-        Write-Host $bla
-        
-        #Start-Process -FilePath $FilePath -ArgumentList $ArgumentList
+                
+        Start-Process -FilePath $FilePath -ArgumentList $ArgumentList -RedirectStandardOutput stdout.txt -RedirectStandardError stderr.txt
     }
 
-    #Write-Host $bla
 Export
