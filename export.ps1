@@ -9,7 +9,7 @@ foreach ($arg in $args) {
      
         Param (
           $Date         = (Get-Date -Format yyyyMMdd),
-          $DmpFileName  = "$env:ORACLE_SID$Date-4",
+          $DmpFileName  = "$env:ORACLE_SID$Date-5",
           $Oracle_Home  = "C:\Oracle_Sys\$env:ORACLE_SID\product\11.2\db\",  
           $FilePath     = (Join-Path $Oracle_Home \bin\expdp.exe),
           $FlashBack    = '\"TO_TIMESTAMP(TO_CHAR(SYSDATE,''YYYY-MM-DD HH24:MI:SS''),''YYYY-MM-DD HH24:MI:SS'')\"',
@@ -23,7 +23,7 @@ foreach ($arg in $args) {
         Get-ChildItem Env:ORACLE_SID
         Write-Host $ArgumentList
                 
-        Start-Process -FilePath $FilePath -ArgumentList $ArgumentList -RedirectStandardOutput stdout.txt -RedirectStandardError stderr.txt
+        Start-Process -FilePath $FilePath -ArgumentList $ArgumentList #-NoNewWindow -PassThru -Wait -RedirectStandardOutput stdout.txt -RedirectStandardError stderr.txt
     }
 
 Export
