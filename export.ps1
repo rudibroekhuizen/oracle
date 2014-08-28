@@ -28,7 +28,7 @@ foreach ($arg in $args) {
         Start-Process -FilePath $FilePath -ArgumentList $ArgumentList #-NoNewWindow -PassThru -Wait -RedirectStandardOutput stdout.txt -RedirectStandardError stderr.txt
         
         # Zip the .dmp file
-        #zip -m e:\EXP_FULL_NBCPROD_20140202_2130.dmp.zip EXP_FULL_NBCPROD_20140202_2130.DMP
+        zip -m $DmpFileName.DMP.zip $DmpFileName.DMP
     }
 
 Export
