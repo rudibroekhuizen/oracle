@@ -16,14 +16,19 @@ foreach ($arg in $args) {
           $ArgumentList = "USERID='/ as sysdba' FULL=Y DIRECTORY=DMPDIR DUMPFILE=$DmpFileName.dmp LOGFILE=$DmpFileName.txt FLASHBACK_TIME=$FlashBack"
         )
 
+        # Write parameters for troubleshooting
         Write-Host "Date:" $Date
         Write-Host "DmpFileName:" $DmpFileName
         Write-Host "Oracle_Home": $Oracle_Home
         Write-Host "Environment variable ORACLE_SID:" $env:ORACLE_SID
         Get-ChildItem Env:ORACLE_SID
         Write-Host $ArgumentList
-                
+        
+        # Start the expdp        
         Start-Process -FilePath $FilePath -ArgumentList $ArgumentList #-NoNewWindow -PassThru -Wait -RedirectStandardOutput stdout.txt -RedirectStandardError stderr.txt
+        
+        # Zip the .dmp file
+        #zip -m e:\EXP_FULL_NBCPROD_20140202_2130.dmp.zip EXP_FULL_NBCPROD_20140202_2130.DMP
     }
 
 Export
