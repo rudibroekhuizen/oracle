@@ -1,5 +1,5 @@
 -- this will hopefully provide input for logstash
--- sqlplus -s / as sysdba @logs.sql > log.txt
+-- sqlplus -s / as sysdba @logs-01.sql > log.txt
 
 set echo off
 set verify off
