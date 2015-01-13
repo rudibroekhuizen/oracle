@@ -1,3 +1,5 @@
+-- this will hopefully provide input for logstash
+
 set echo off
 set verify off
 set feedback off
