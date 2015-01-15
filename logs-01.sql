@@ -1,5 +1,6 @@
 -- this will hopefully provide input for logstash
 -- sqlplus -s / as sysdba @logs-01.sql > log.txt
+-- Check this: https://github.com/rudibroekhuizen/puppet-role_logstash/blob/master/files/logstash-oraclelog-02.conf
 
 set echo off
 set verify off
